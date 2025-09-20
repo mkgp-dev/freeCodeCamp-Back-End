@@ -40,11 +40,11 @@ const upload = multer({
 });
 
 // Timestamp Microservice
-app.get(/^\/api\/([0-9]{4}-[0-9]{2}-[0-9]{2}|[0-9]{10}|[0-9]{13}|[0-9]+)$/, (req, res) => {
-  const date = req.params[0];
-  const response = App.timestamp(date);
+// (Patch) this should work for /api query.
+app.get('/api', (req, res) => {
+  const response = App.timestamp();
   if (response.error) {
-    return res.status(400).json(errorMSG('Invalid Date'));
+    return res.json(errorMSG('Invalid Date'));
   }
 
   res.status(200).json({
@@ -69,16 +69,17 @@ app.get('/api/whoami', (req, res) => {
   res.sendFile(process.cwd() + '/templates/url-shortener.html');
 }); */
 
+// (Patch) removed 400; bro can't see 400 bad request, my bad.
 app.post('/api/shorturl', async(req, res, next) => {
   const url = req.body.url;
   if (!url) {
-    return res.status(400).json(errorMSG('URL is required.'))
+    return res.json(errorMSG('URL is required.'))
   }
 
   try {
     const response = await App.insertURL(url);
     if (response.code == 0) {
-      return res.status(400).json(errorMSG('invalid url'));
+      return res.json(errorMSG('invalid url'));
     }
 
     res.status(200).json({
@@ -212,6 +213,20 @@ app.post('/api/fileanalyse', upload.single('upfile'), (req, res, next) => {
     console.error(err.message);
     next(err);
   }
+});
+
+// (Patch) Timestamp Placement
+app.get('/api/:date', (req, res) => {
+  const date = req.params.date;
+  const response = App.timestamp(date);
+  if (response.error) {
+    return res.status(400).json(errorMSG('Invalid Date'));
+  }
+
+  res.status(200).json({
+    unix: response.unix,
+    utc: response.utc
+  });
 });
 
 // Fallback error
