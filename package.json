@@ -1,0 +1,19 @@
+{
+  "name": "freecodecamp-backend",
+  "version": "1.0.0",
+  "description": "A certificate project from freeCodeCamp, whereas every single objective from Back End Development and APIs are compiled into one.",
+  "author": "@mkgp-dev",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "mongodb": "^6.20.0",
+    "multer": "^2.0.2",
+    "request_trimmer": "^1.0.0",
+    "request-ip": "^3.3.0"
+  }
+}

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark" data-bs-core="modern">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Back End Development and APIs Projects</title>
+
+    <!-- Stylesheets -->
+     <link href="/css/halfmoon.min.css" rel="stylesheet">
+     <link href="/css/cores/halfmoon.modern.css" rel="stylesheet">
+     <style>
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        input[type="number"] {
+          -webkit-appearance: textfield;
+          -moz-appearance: textfield;
+          appearance: textfield;
+        }
+     </style>
+  </head>
+  <body>
+    <main class="container mt-5">
+      <!-- Navigation -->
+      <ul class="nav nav-pills mb-4">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="timestamp" data-bs-toggle="tab" data-bs-target="#timestamp-panel" type="button" role="tab" aria-controls="timestamp-panel" aria-selected="true">Timestamp Microservice</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="request-header-parser" data-bs-toggle="tab" data-bs-target="#request-header-parser-panel" type="button" role="tab" aria-controls="request-header-parser-panel" aria-selected="true">Request Header Parser Microservice</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="url-shortener" data-bs-toggle="tab" data-bs-target="#url-shortener-panel" type="button" role="tab" aria-controls="url-shortener-panel" aria-selected="true">URL Shortener Microservice</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="exercise-tracker" data-bs-toggle="tab" data-bs-target="#exercise-tracker-panel" type="button" role="tab" aria-controls="exercise-tracker-panel" aria-selected="true">Exercise Tracker</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="file-metadata" data-bs-toggle="tab" data-bs-target="#file-metadata-panel" type="button" role="tab" aria-controls="file-metadata-panel" aria-selected="true">File Metadata Microservice</button>
+        </li>
+      </ul>
+
+      <!-- Panels -->
+      <div class="tab-content mb-4">
+        <div class="tab-pane fade show active" id="timestamp-panel" role="tabpanel" aria-labelledby="timestamp" tabindex="0">
+          <h1 class="display-5">Timestamp Microservice</h1>
+          <div class="row">
+            <div class="col-6">
+              <div class="card mb-3" style="height: 150px">
+                <div class="card-body">
+                  <pre id="timestamp-default-container" class="mb-0">idle.</pre>
+                </div>
+              </div>
+              <p>Click the button below so you can see the request of <code>/api/1451001600000</code>.</p>
+              <button type="button" id="timestamp-default" class="btn btn-primary d-block w-100">Request</button>
+            </div>
+            <div class="col-6">
+              <div class="card mb-3" style="height: 150px">
+                <div class="card-body">
+                  <pre id="timestamp-container" class="mb-0">idle.</pre>
+                </div>
+              </div>
+              <div class="mb-3">
+                <p>The request will be using <code>/api/(date inputted)</code>.</p>
+                <input type="text" class="form-control" name="time" id="time" placeholder="2015-12-25 or 1451001600000"/>
+              </div>
+              <button type="button" id="timestamp-submit" class="btn btn-primary d-block w-100">Submit</button>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="request-header-parser-panel" role="tabpanel" aria-labelledby="request-header-parser" tabindex="0">
+          <h1 class="display-5">Request Header Parser Microservice</h1>
+          <div class="card mb-3">
+            <div class="card-body">
+              <pre id="parser-container" class="mb-0">idle.</pre>
+            </div>
+          </div>
+          <p>The request goes to <code>/api/whoami</code>, giving your <u>IP Address</u>, <u>Language</u>, and <u>Software</u> using <strong>headers</strong>.</p>
+        </div>
+        <div class="tab-pane fade" id="url-shortener-panel" role="tabpanel" aria-labelledby="url-shortener" tabindex="0">
+          <h1 class="display-5">URL Shortener Microservice</h1>
+          <div class="card mb-3">
+            <div class="card-body">
+              <pre id="url-container" class="mb-0">idle.</pre>
+            </div>
+          </div>
+          <div class="url-message-container mb-3"></div>
+          <p>You can shorten your link here through this request <code>/api/shorturl</code>.</p>
+          <div class="mb-3">
+            <input type="text" class="form-control" name="url" id="url" placeholder="https://www.freecodecamp.org/"/>
+          </div>
+          <button type="button" id="url-submit" class="btn btn-primary d-block w-100">Submit</button>
+        </div>
+        <div class="tab-pane fade" id="exercise-tracker-panel" role="tabpanel" aria-labelledby="exercise-tracker" tabindex="0">
+          <h1 class="display-5">Exercise Tracker</h1>
+          <div class="row">
+            <div class="col-6">
+              <div class="card mb-3" style="height: 150px">
+                <div class="card-body">
+                  <pre id="user-container" class="mb-0">idle.</pre>
+                </div>
+              </div>
+              <p>You can create a user here using this request <code>/api/users</code>.</p>
+              <div class="mb-3">
+                <input type="text" class="form-control" name="username" id="username" placeholder="mkgpdev"/>
+              </div>
+              <div class="d-flex align-items-center">
+                <a href="/api/users" target="_blank" class="text-decoration-none">View all users</a>
+                <button type="button" id="username-submit" class="btn btn-primary ms-auto">Create</button>
+              </div>
+              <hr/>
+              <p style="white-space: pre-line">You can also view your logs using this API <code>/api/users/(insert your id)/logs</code>.
+              <span id="user-log"></span>
+
+              Options are available using <u>from</u>, <u>to</u>, <u>limit</u>.
+              <code>/api/users/(insert your id)/logs?&from=(date)&to=(date)&limit=(int)</code>
+              </p>
+            </div>
+            <div class="col-6">
+              <div class="card mb-3" style="height: 150px">
+                <div class="card-body">
+                  <pre id="exercise-container" class="mb-0">idle.</pre>
+                </div>
+              </div>
+              <p>You can add exercises here using this request <code>/api/users/(id)/exercises</code>.</p>
+              <div class="mb-3">
+                <input type="text" class="form-control" name="uid" id="uid" placeholder="68ce39fd9c83250ffffabae1"/>
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control" name="description" id="description" placeholder="description here!"/>
+              </div>
+              <div class="mb-3">
+                <input type="number" class="form-control" name="duration" id="duration" placeholder="how many minutes? 20?"/>
+              </div>
+              <div class="mb-3">
+                <input type="date" class="form-control" name="date" id="date"/>
+              </div>
+              <button type="button" id="exercise-submit" class="btn btn-primary d-block w-100">Add</button>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="file-metadata-panel" role="tabpanel" aria-labelledby="file-metadata" tabindex="0">
+          <h1 class="display-5">File Metadata Microservice</h1>
+          <div class="card mb-3">
+            <div class="card-body">
+              <pre id="file-container" class="mb-0">idle.</pre>
+            </div>
+          </div>
+          <p>This will check the file's <u>name</u>, <u>type</u>, and <u>size</u> with the use of this request <code>/api/fileanalyse</code>.</p>
+          <div class="mb-3">
+            <input type="file" class="form-control" name="upfile" id="upfile"/>
+          </div>
+          <button type="button" id="file-submit" class="btn btn-primary d-block w-100">Upload</button>
+        </div>
+      </div>
+
+      <footer>
+        <p>Made with love by <a href="https://github.com/mkgp-dev" target="_blank" class="text-decoration-none">@mkgp-dev</a></p>
+      </footer>
+    </main>
+    
+    <!-- Javascript -->
+     <script src="/js/jquery-3.7.1.min.js"></script>
+     <script src="/js/bootstrap.bundle.min.js"></script>
+     <script src="/js/default.js"></script>
+  </body>
+</html>
